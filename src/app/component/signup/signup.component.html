@@ -1,0 +1,82 @@
+<div style="margin-top: 5%">
+  <mat-card class="m-auto" style="max-width: 50%">
+    <mat-card-header class="mb-3">
+      <mat-card-title>
+        Register
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col-md-6">
+          <form class="form-field-full" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+            <ng-container *ngFor="let inputObj of signupDefaultModel;">
+              <mat-form-field *ngIf="inputObj?.fieldName == 'email'" appearance="outline" class="w-100">
+                <mat-label>{{inputObj?.label}}</mat-label>
+                <input matInput *ngIf="inputObj?.fieldName == 'email'" type="email" name="{{inputObj?.fieldName}}"
+                  id="{{inputObj?.fieldName}}" [formControlName]="signupFormControl['emailFieldName']" required
+                  autocomplete="off">
+                <mat-error>
+                  <span>{{ showError('email') }}</span>
+                </mat-error>
+              </mat-form-field>
+  
+              <mat-form-field *ngIf="inputObj?.fieldName == 'userName'" appearance="outline" class="w-100">
+                <mat-label>{{inputObj?.label}}</mat-label>
+                <input matInput *ngIf="inputObj?.fieldName == 'userName'" type="text" name="{{inputObj?.fieldName}}"
+                  id="{{inputObj?.fieldName}}" [formControlName]="signupFormControl['userNameFieldName']" required
+                  autocomplete="off">
+                <mat-error>
+                  <span>{{ showError('userName') }}</span>
+                </mat-error>
+              </mat-form-field>
+  
+              <mat-form-field *ngIf="inputObj?.fieldName == 'password'" appearance="outline" class="w-100">
+                <mat-label>{{inputObj?.label}}</mat-label>
+                <input matInput *ngIf="inputObj?.fieldName == 'password'" type="password" name="{{inputObj?.fieldName}}"
+                  id="{{inputObj?.fieldName}}" [formControlName]="signupFormControl['passwordFieldName']"
+                  (change)="enableDisableConfirmPwd()" required autocomplete="off">
+                <mat-error>
+                  <span>{{ showError('password') }}</span>
+                </mat-error>
+              </mat-form-field>
+  
+              <mat-form-field *ngIf="inputObj?.fieldName == 'confirmPassword'" appearance="outline" class="w-100">
+                <mat-label>{{inputObj?.label}}</mat-label>
+                <input matInput *ngIf="inputObj?.fieldName == 'confirmPassword'" type="password"
+                  name="{{inputObj?.fieldName}}" id="{{inputObj?.fieldName}}"
+                  [formControlName]="signupFormControl['confirmPasswordFieldName']" required autocomplete="off">
+                <mat-error>
+                  <span>{{ showError('confirmPassword') }}</span>
+                </mat-error>
+              </mat-form-field>
+  
+            </ng-container>
+            <!-- Password Hint -->
+            <label>Password Must Contains</label>
+            <ul>
+              <li *ngFor="let hint of passwordHint">
+                {{ hint }}
+              </li>
+            </ul>
+            <button class="w-100 my-3 pe-auto" mat-raised-button [disabled]="!signupForm.valid" type="submit">Submit
+            <!-- Already have an account content -->
+        
+              <!-- Button Loader -->
+              <!-- <mat-icon *ngIf="isSubmitting"> -->
+              <!-- <mat-spinner color="accent" diameter="19"></mat-spinner>
+                </mat-icon> -->
+            </button>
+            <div>
+              Already have a account
+              <a  class="pe-auto" routerLink="/login">Login</a>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-6">
+          <img class="img-fluid rounded-start w-100 h-100 object-fit-cover" loading="lazy"
+            src="./assets/images/ubuntu.jpg" alt="BootstrapBrain Logo">
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
